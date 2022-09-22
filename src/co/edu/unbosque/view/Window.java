@@ -12,6 +12,7 @@ public class Window {
         principal.setLocationRelativeTo(null);
 
         JButton btnRead = new JButton("Clic para leer el archivo");
+        int test;
     }
 
 }
