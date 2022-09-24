@@ -7,18 +7,18 @@ public class Window extends JFrame{
     JPanel panel = new JPanel();
     JTextPane areaTexto = new JTextPane();
     JCheckBox checkBox = new JCheckBox("Diferenciar Mayus/minus");
-
+    JScrollPane scrollPane = new JScrollPane(areaTexto);
+    JButton leer;
+    JButton kmp;
+    JButton bm;
 
     public Window(){
         setVisible(true);
-        setSize(500,500);
+        setSize(700,700);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
         setTitle("Prueba");
         iniciarComponentes();
-
-        JButton btnRead = new JButton("Clic para leer el archivo");
-        int test;
     }
 
     private void iniciarComponentes(){
@@ -31,19 +31,20 @@ public class Window extends JFrame{
 
     private void botones(){
 
-        JButton leer = new JButton("Leer");
-        JButton kmp = new JButton("KMP");
-        JButton bp = new JButton("BP");
+        leer = new JButton("Leer");
+        leer.setActionCommand("LEERARCHIVO");
+        kmp = new JButton("KMP");
+        bm = new JButton("BM");
 
 
         leer.setBounds(50,50,100,50);
         kmp.setBounds(200,50,100,50);
-        bp.setBounds(350,50,100,50);
+        bm.setBounds(350,50,100,50);
 
 
         panel.add(leer);
         panel.add(kmp);
-        panel.add(bp);
+        panel.add(bm);
     }
 
     public void areaDeTexto(){
@@ -51,6 +52,56 @@ public class Window extends JFrame{
         panel.add(areaTexto);
         checkBox.setBounds(50,400, 200,50);
         panel.add(checkBox);
+        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+        panel.add(scrollPane);
 
+    }
+
+    public JPanel getPanel() {
+        return panel;
+    }
+
+    public void setPanel(JPanel panel) {
+        this.panel = panel;
+    }
+
+    public JTextPane getAreaTexto() {
+        return areaTexto;
+    }
+
+    public void setAreaTexto(JTextPane areaTexto) {
+        this.areaTexto = areaTexto;
+    }
+
+    public JCheckBox getCheckBox() {
+        return checkBox;
+    }
+
+    public void setCheckBox(JCheckBox checkBox) {
+        this.checkBox = checkBox;
+    }
+
+    public JButton getLeer() {
+        return leer;
+    }
+
+    public void setLeer(JButton leer) {
+        this.leer = leer;
+    }
+
+    public JButton getKmp() {
+        return kmp;
+    }
+
+    public void setKmp(JButton kmp) {
+        this.kmp = kmp;
+    }
+
+    public JButton getBm() {
+        return bm;
+    }
+
+    public void setBm(JButton bm) {
+        this.bm = bm;
     }
 }
