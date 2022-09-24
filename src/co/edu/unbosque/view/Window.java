@@ -49,7 +49,8 @@ public class Window extends JFrame{
 
     public void areaDeTexto(){
         areaTexto.setBounds(50,150,400,250);
-        panel.add(areaTexto);
+        areaTexto.setEditable(false);
+        scrollPane.setBounds(50,150,400,250);
         checkBox.setBounds(50,400, 200,50);
         panel.add(checkBox);
         scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);

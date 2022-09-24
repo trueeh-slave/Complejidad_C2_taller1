@@ -26,15 +26,15 @@ public class Controller implements ActionListener{
     @Override
     public void actionPerformed(ActionEvent e) {
         String command = e.getActionCommand();
-
+        System.out.println(command);
         switch (command){
             case "LEERARCHIVO": {
-                readFile();
+                System.out.println(readFile());
             }
         }
     }
 
-    public void readFile(){
+    public String readFile(){
         String fileName = "";
         String fileAddress = "";
         FileDialog fd = new FileDialog(new Frame(),"Seleccionar un archivo", FileDialog.LOAD);
@@ -47,21 +47,21 @@ public class Controller implements ActionListener{
             fileAddress = fd.getDirectory();
         }
         System.out.println("file: "+fileAddress+fileName);
+        StringBuilder stringBuilder = new StringBuilder();
 
         try{
             BufferedReader br = new BufferedReader(new FileReader(fileAddress+fileName));
             String line = null;
 
-            StringBuilder stringBuilder = new StringBuilder();
             while((line = br.readLine()) != null){
-                stringBuilder.append(line);
-                window.getAreaTexto().read(br,new FileReader(fileAddress+fileName));
+                stringBuilder.append(line).append("\n");
             }
-
-
             br.close();
+            window.getAreaTexto().setText(stringBuilder.toString());
+
         } catch (Exception e){
             System.out.println("El archivo no se pudo abrir");
         }
+        return stringBuilder.toString();
     }
 }
