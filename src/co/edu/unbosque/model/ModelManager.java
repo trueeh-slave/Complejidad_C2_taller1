@@ -70,13 +70,4 @@ public class ModelManager {
 
         return matches;
     }
-
-    public void booyermoore(String text, String patron){
-        Pattern pattern = Pattern.compile(patron);
-        Matcher matcher = pattern.matcher(text);
-
-        System.out.println(matcher);
-
-        boolean match = matcher.find(10);
-    }
 }

@@ -1,9 +1,9 @@
 package co.edu.unbosque.controller;
 
+import co.edu.unbosque.model.BoyerMoore;
 import co.edu.unbosque.model.ModelManager;
 import co.edu.unbosque.view.Window;
 
-import javax.swing.*;
 import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.StyleConstants;
 import javax.swing.text.StyledDocument;
@@ -13,8 +13,7 @@ import java.awt.event.ActionListener;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.FilenameFilter;
-import java.nio.file.Files;
-import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Controller implements ActionListener{
@@ -23,6 +22,7 @@ public class Controller implements ActionListener{
     ModelManager md = new ModelManager();
 
     String result = "";
+    BoyerMoore boyerMoore;
     public Controller(){
         listeners();
     }
@@ -41,12 +41,12 @@ public class Controller implements ActionListener{
         switch (command){
             case "LEERARCHIVO": {
                 readFile();
-            }
+            } break;
 
             case "KMP":{
-                String getTextPatern = window.getPatron().getText();
+                String getTextPattern = window.getPatron().getText();
 
-                List<Integer> searchList = md.search(result,getTextPatern);
+                List<Integer> searchList = md.search(result,getTextPattern);
                 SimpleAttributeSet simpleAttributeSet = new SimpleAttributeSet();
                 StyleConstants.setForeground(simpleAttributeSet,Color.black);
                 StyleConstants.setBackground(simpleAttributeSet,Color.yellow);
@@ -54,13 +54,25 @@ public class Controller implements ActionListener{
                 StyledDocument doc = window.getAreaTexto().getStyledDocument();
 
                 for (var offset : searchList){
-                    doc.setCharacterAttributes(offset,getTextPatern.length(),simpleAttributeSet,true);
+                    doc.setCharacterAttributes(offset,getTextPattern.length(),simpleAttributeSet,true);
                 }
-            }
+            } break;
 
             case "BM":{
+                String getTextPattern = window.getPatron().getText();
+                boyerMoore = new BoyerMoore(getTextPattern);
 
-            }
+                ArrayList<Integer> testeo = boyerMoore.search(result);
+                SimpleAttributeSet simpleAttributeSet = new SimpleAttributeSet();
+                StyleConstants.setForeground(simpleAttributeSet,Color.black);
+                StyleConstants.setBackground(simpleAttributeSet,Color.yellow);
+
+                StyledDocument doc = window.getAreaTexto().getStyledDocument();
+
+                for(var offset : testeo){
+                    doc.setCharacterAttributes(offset,getTextPattern.length(),simpleAttributeSet,true);
+                }
+            } break;
         }
     }
 
