@@ -1,7 +1,12 @@
 package co.edu.unbosque.controller;
 
+import co.edu.unbosque.model.ModelManager;
 import co.edu.unbosque.view.Window;
 
+import javax.swing.*;
+import javax.swing.text.SimpleAttributeSet;
+import javax.swing.text.StyleConstants;
+import javax.swing.text.StyledDocument;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -10,11 +15,14 @@ import java.io.FileReader;
 import java.io.FilenameFilter;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.List;
 
 public class Controller implements ActionListener{
 //    FileManager fm = new FileManager();
     co.edu.unbosque.view.Window window = new Window();
-    String entireFile;
+    ModelManager md = new ModelManager();
+
+    String result = "";
     public Controller(){
         listeners();
     }
@@ -23,6 +31,7 @@ public class Controller implements ActionListener{
         window.getLeer().addActionListener(this);
         window.getKmp().addActionListener(this);
         window.getBm().addActionListener(this);
+        window.getPatron().addActionListener(this);
     }
 
     @Override
@@ -31,11 +40,22 @@ public class Controller implements ActionListener{
         System.out.println(command);
         switch (command){
             case "LEERARCHIVO": {
-                System.out.println(readFile());
+                readFile();
             }
 
             case "KMP":{
+                String getTextPatern = window.getPatron().getText();
 
+                List<Integer> searchList = md.search(result,getTextPatern);
+                SimpleAttributeSet simpleAttributeSet = new SimpleAttributeSet();
+                StyleConstants.setForeground(simpleAttributeSet,Color.black);
+                StyleConstants.setBackground(simpleAttributeSet,Color.yellow);
+
+                StyledDocument doc = window.getAreaTexto().getStyledDocument();
+
+                for (var offset : searchList){
+                    doc.setCharacterAttributes(offset,getTextPatern.length(),simpleAttributeSet,true);
+                }
             }
 
             case "BM":{
@@ -72,6 +92,7 @@ public class Controller implements ActionListener{
         } catch (Exception e){
             System.out.println("El archivo no se pudo abrir");
         }
+        result = stringBuilder.toString(); //listo, ahora podes usar result en cualquier lado, y este metodo no se va a callear
         return stringBuilder.toString();
     }
 }

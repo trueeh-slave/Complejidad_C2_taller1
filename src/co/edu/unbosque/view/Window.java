@@ -1,10 +1,12 @@
 package co.edu.unbosque.view;
 
 import javax.swing.*;
+import javax.swing.text.Highlighter;
 import java.awt.*;
 
 public class Window extends JFrame{
     JPanel panel = new JPanel();
+    JFrame jFrame = new JFrame();
     static JTextPane areaTexto = new JTextPane();
 
     JCheckBox checkBox = new JCheckBox("Diferenciar Mayus/minus");
@@ -142,5 +144,9 @@ public class Window extends JFrame{
 
     public static void setScrollPane(JScrollPane scrollPane) {
         Window.scrollPane = scrollPane;
+    }
+
+    public JFrame getjFrame() {
+        return jFrame;
     }
 }
