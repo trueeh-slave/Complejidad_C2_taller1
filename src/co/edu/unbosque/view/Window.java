@@ -5,9 +5,14 @@ import java.awt.*;
 
 public class Window extends JFrame{
     JPanel panel = new JPanel();
-    JTextPane areaTexto = new JTextPane();
+    static JTextPane areaTexto = new JTextPane();
+
     JCheckBox checkBox = new JCheckBox("Diferenciar Mayus/minus");
-    JScrollPane scrollPane = new JScrollPane(areaTexto);
+    JTextField patron = new JTextField();
+    JLabel texto = new JLabel("Ingrese el patron:");
+
+    static JScrollPane scrollPane = new JScrollPane(areaTexto);
+
     JButton leer;
     JButton kmp;
     JButton bm;
@@ -37,23 +42,27 @@ public class Window extends JFrame{
         bm = new JButton("BM");
 
 
-        leer.setBounds(50,50,100,50);
-        kmp.setBounds(200,50,100,50);
-        bm.setBounds(350,50,100,50);
+        leer.setBounds(150,50,100,50);
+        kmp.setBounds(300,50,100,50);
+        bm.setBounds(450,50,100,50);
+        patron.setBounds(152,550,200,40);
+        texto.setBounds(50,550,200,40);
 
 
         panel.add(leer);
         panel.add(kmp);
         panel.add(bm);
+        panel.add(patron);
+        panel.add(texto);
     }
 
     public void areaDeTexto(){
-        areaTexto.setBounds(50,150,400,250);
+        areaTexto.setBounds(50,150,400,600);
         areaTexto.setEditable(false);
-        scrollPane.setBounds(50,150,400,250);
-        checkBox.setBounds(50,400, 200,50);
+        scrollPane.setBounds(50,150,600,350);
+        checkBox.setBounds(50,500, 200,50);
         panel.add(checkBox);
-        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
         panel.add(scrollPane);
 
     }
@@ -105,4 +114,5 @@ public class Window extends JFrame{
     public void setBm(JButton bm) {
         this.bm = bm;
     }
+
 }
