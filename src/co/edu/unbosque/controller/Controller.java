@@ -21,6 +21,8 @@ public class Controller implements ActionListener{
 
     public void listeners(){
         window.getLeer().addActionListener(this);
+        window.getKmp().addActionListener(this);
+        window.getBm().addActionListener(this);
     }
 
     @Override
@@ -30,6 +32,14 @@ public class Controller implements ActionListener{
         switch (command){
             case "LEERARCHIVO": {
                 System.out.println(readFile());
+            }
+
+            case "KMP":{
+
+            }
+
+            case "BM":{
+
             }
         }
     }

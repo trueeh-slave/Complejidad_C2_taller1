@@ -38,8 +38,13 @@ public class Window extends JFrame{
 
         leer = new JButton("Leer");
         leer.setActionCommand("LEERARCHIVO");
+
         kmp = new JButton("KMP");
+        kmp.setActionCommand("KMP");
+
         bm = new JButton("BM");
+        bm.setActionCommand("BM");
+
 
 
         leer.setBounds(150,50,100,50);
@@ -115,4 +120,27 @@ public class Window extends JFrame{
         this.bm = bm;
     }
 
+    public JTextField getPatron() {
+        return patron;
+    }
+
+    public void setPatron(JTextField patron) {
+        this.patron = patron;
+    }
+
+    public JLabel getTexto() {
+        return texto;
+    }
+
+    public void setTexto(JLabel texto) {
+        this.texto = texto;
+    }
+
+    public static JScrollPane getScrollPane() {
+        return scrollPane;
+    }
+
+    public static void setScrollPane(JScrollPane scrollPane) {
+        Window.scrollPane = scrollPane;
+    }
 }
