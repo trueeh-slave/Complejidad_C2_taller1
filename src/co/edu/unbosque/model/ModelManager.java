@@ -41,6 +41,7 @@ public class ModelManager {
     public List<Integer> search(String text, String pattern) {
         int t = 0; // the position of the current character in text
         int p = 0; // the position of the current character in pattern
+        if(pattern.length() == 0) return null;
 
         if(pattern == null) return Collections.emptyList();
         int tLen = text.length();

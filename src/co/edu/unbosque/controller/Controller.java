@@ -17,7 +17,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Controller implements ActionListener{
-//    FileManager fm = new FileManager();
     co.edu.unbosque.view.Window window = new Window();
     ModelManager md = new ModelManager();
 
@@ -37,7 +36,6 @@ public class Controller implements ActionListener{
     @Override
     public void actionPerformed(ActionEvent e) {
         String command = e.getActionCommand();
-        System.out.println(command);
         switch (command){
             case "LEERARCHIVO": {
                 readFile();
@@ -53,6 +51,7 @@ public class Controller implements ActionListener{
 
                 StyledDocument doc = window.getAreaTexto().getStyledDocument();
 
+                if(searchList == null) return;
                 for (var offset : searchList){
                     doc.setCharacterAttributes(offset,getTextPattern.length(),simpleAttributeSet,true);
                 }
@@ -62,14 +61,15 @@ public class Controller implements ActionListener{
                 String getTextPattern = window.getPatron().getText();
                 boyerMoore = new BoyerMoore(getTextPattern);
 
-                ArrayList<Integer> testeo = boyerMoore.search(result);
+                ArrayList<Integer> search = boyerMoore.search(result);
                 SimpleAttributeSet simpleAttributeSet = new SimpleAttributeSet();
                 StyleConstants.setForeground(simpleAttributeSet,Color.black);
                 StyleConstants.setBackground(simpleAttributeSet,Color.yellow);
 
                 StyledDocument doc = window.getAreaTexto().getStyledDocument();
 
-                for(var offset : testeo){
+                if(search == null) return;
+                for(var offset : search){
                     doc.setCharacterAttributes(offset,getTextPattern.length(),simpleAttributeSet,true);
                 }
             } break;
