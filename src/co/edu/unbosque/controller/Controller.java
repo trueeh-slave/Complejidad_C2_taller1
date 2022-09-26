@@ -1,7 +1,7 @@
 package co.edu.unbosque.controller;
 
 import co.edu.unbosque.model.BoyerMoore;
-import co.edu.unbosque.model.ModelManager;
+import co.edu.unbosque.model.Kmp;
 import co.edu.unbosque.view.Window;
 
 import javax.swing.text.SimpleAttributeSet;
@@ -18,7 +18,7 @@ import java.util.List;
 
 public class Controller implements ActionListener{
     co.edu.unbosque.view.Window window = new Window();
-    ModelManager md = new ModelManager();
+    Kmp md = new Kmp();
 
     String result = "";
     BoyerMoore boyerMoore;
@@ -43,17 +43,30 @@ public class Controller implements ActionListener{
 
             case "KMP":{
                 String getTextPattern = window.getPatron().getText();
+                if(window.getCheckBox().isSelected()){
+                    List<Integer> searchList = md.kmpWithoutMayus(result,getTextPattern);
+                    SimpleAttributeSet simpleAttributeSet = new SimpleAttributeSet();
+                    StyleConstants.setForeground(simpleAttributeSet,Color.black);
+                    StyleConstants.setBackground(simpleAttributeSet,Color.yellow);
 
-                List<Integer> searchList = md.search(result,getTextPattern);
-                SimpleAttributeSet simpleAttributeSet = new SimpleAttributeSet();
-                StyleConstants.setForeground(simpleAttributeSet,Color.black);
-                StyleConstants.setBackground(simpleAttributeSet,Color.yellow);
+                    StyledDocument doc = window.getAreaTexto().getStyledDocument();
 
-                StyledDocument doc = window.getAreaTexto().getStyledDocument();
+                    if(searchList == null) return;
+                    for (var offset : searchList){
+                        doc.setCharacterAttributes(offset,getTextPattern.length(),simpleAttributeSet,true);
+                    }
+                } else {
+                    List<Integer> searchList = md.kmp(result,getTextPattern);
+                    SimpleAttributeSet simpleAttributeSet = new SimpleAttributeSet();
+                    StyleConstants.setForeground(simpleAttributeSet,Color.black);
+                    StyleConstants.setBackground(simpleAttributeSet,Color.yellow);
 
-                if(searchList == null) return;
-                for (var offset : searchList){
-                    doc.setCharacterAttributes(offset,getTextPattern.length(),simpleAttributeSet,true);
+                    StyledDocument doc = window.getAreaTexto().getStyledDocument();
+
+                    if(searchList == null) return;
+                    for (var offset : searchList){
+                        doc.setCharacterAttributes(offset,getTextPattern.length(),simpleAttributeSet,true);
+                    }
                 }
             } break;
 
@@ -61,16 +74,30 @@ public class Controller implements ActionListener{
                 String getTextPattern = window.getPatron().getText();
                 boyerMoore = new BoyerMoore(getTextPattern);
 
-                ArrayList<Integer> search = boyerMoore.search(result);
-                SimpleAttributeSet simpleAttributeSet = new SimpleAttributeSet();
-                StyleConstants.setForeground(simpleAttributeSet,Color.black);
-                StyleConstants.setBackground(simpleAttributeSet,Color.yellow);
+                if(window.getCheckBox().isSelected()){
+                    ArrayList<Integer> bm = boyerMoore.bmWithourMayus(result);
+                    SimpleAttributeSet simpleAttributeSet = new SimpleAttributeSet();
+                    StyleConstants.setForeground(simpleAttributeSet,Color.black);
+                    StyleConstants.setBackground(simpleAttributeSet,Color.yellow);
 
-                StyledDocument doc = window.getAreaTexto().getStyledDocument();
+                    StyledDocument doc = window.getAreaTexto().getStyledDocument();
 
-                if(search == null) return;
-                for(var offset : search){
-                    doc.setCharacterAttributes(offset,getTextPattern.length(),simpleAttributeSet,true);
+                    if(bm == null) return;
+                    for(var offset : bm){
+                        doc.setCharacterAttributes(offset,getTextPattern.length(),simpleAttributeSet,true);
+                    }
+                } else {
+                    ArrayList<Integer> search = boyerMoore.bm(result);
+                    SimpleAttributeSet simpleAttributeSet = new SimpleAttributeSet();
+                    StyleConstants.setForeground(simpleAttributeSet,Color.black);
+                    StyleConstants.setBackground(simpleAttributeSet,Color.yellow);
+
+                    StyledDocument doc = window.getAreaTexto().getStyledDocument();
+
+                    if(search == null) return;
+                    for(var offset : search){
+                        doc.setCharacterAttributes(offset,getTextPattern.length(),simpleAttributeSet,true);
+                    }
                 }
             } break;
         }

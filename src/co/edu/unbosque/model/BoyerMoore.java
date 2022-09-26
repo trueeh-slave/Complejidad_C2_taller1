@@ -3,43 +3,59 @@ package co.edu.unbosque.model;
 import java.util.ArrayList;
 
 public class BoyerMoore {
-    private final int R;     // the radix
-    private int[] right;     // the bad-character skip array
-    private String pat;      // or as a string
-
-    // pattern provided as a string
+    private final int R = 256;
+    private int[] derecha;   
+    private String pattern;
+    
     public BoyerMoore(String pat) {
-        this.R = 256;
-        this.pat = pat;
-
-        // position of rightmost occurrence of c in the pattern
-        right = new int[R];
-        for (int c = 0; c < R; c++)
-            right[c] = -1;
-        for (int j = 0; j < pat.length(); j++)
-            right[pat.charAt(j)] = j;
+        pattern = pat;
+        
+        derecha = new int[R];
+        for (int c = 0; c < R; c++) derecha[c] = -1;
+        for (int j = 0; j < pat.length(); j++) derecha[pat.charAt(j)] = j;
     }
+    
+    public ArrayList<Integer> bm(String text) {
+        int patternLength = pattern.length();
+        int textLength = text.length();
+        ArrayList<Integer> arrayList = new ArrayList<Integer>();
+        int numerosDeSaltos;
 
-    // return offset of first match; N if no match
-    public ArrayList<Integer> search(String txt) {
-        int M = pat.length();
-        int N = txt.length();
-        ArrayList<Integer> newArrayInt = new ArrayList<Integer>();
-        int skip;
-        for (int i = 0; i <= N - M; i += skip) {
-            skip = 0;
-            for (int j = M-1; j >= 0; j--) {
-                if (pat.charAt(j) != txt.charAt(i+j)) {
-                    skip = Math.max(1, j - right[txt.charAt(i+j)]);
+        for (int i = 0; i <= textLength - patternLength; i += numerosDeSaltos) {
+            numerosDeSaltos=0;
+            for (int j = patternLength-1; j >= 0; j--) {
+                if (pattern.charAt(j) != text.charAt(i+j)) {
+                    numerosDeSaltos = Math.max(1, j - derecha[text.charAt(i+j)]);
                     break;
                 }
             }
-            if (skip == 0)
-            {
-                newArrayInt.add(i);    // found
-                skip++;
+            if (numerosDeSaltos == 0) {
+                arrayList.add(i);
+                numerosDeSaltos++;
             }
         }
-        return newArrayInt;                       // not found
+        return arrayList;
+    }
+
+    public ArrayList<Integer> bmWithourMayus(String text) {
+        int patternLength = pattern.length();
+        int textLength = text.length();
+        ArrayList<Integer> arrayList = new ArrayList<Integer>();
+        int numerosDeSaltos;
+
+        for (int i = 0; i <= textLength - patternLength; i += numerosDeSaltos) {
+            numerosDeSaltos=0;
+            for (int j = patternLength-1; j >= 0; j--) {
+                if (pattern.toUpperCase().charAt(j) != text.toUpperCase().charAt(i+j)) {
+                    numerosDeSaltos = Math.max(1, j - derecha[text.charAt(i+j)]);
+                    break;
+                }
+            }
+            if (numerosDeSaltos == 0) {
+                arrayList.add(i);
+                numerosDeSaltos++;
+            }
+        }
+        return arrayList;
     }
 }

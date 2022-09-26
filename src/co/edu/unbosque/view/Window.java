@@ -9,7 +9,7 @@ public class Window extends JFrame{
     JFrame jFrame = new JFrame();
     static JTextPane areaTexto = new JTextPane();
 
-    JCheckBox checkBox = new JCheckBox("Diferenciar Mayus/minus");
+    JCheckBox checkBox = new JCheckBox("No diferenciar Mayus y Minus");
     JTextField patron = new JTextField();
     JLabel texto = new JLabel("Ingrese el patron:");
 
